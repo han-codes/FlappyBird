@@ -59,10 +59,6 @@ public class FlappyBird extends ApplicationAdapter {
         // set x coordinate and offset
         for (int i = 0; i < numberOfTubes; i++) {
 
-            // 0.5 because we want 0.5 or -0.5 since we're working in center of the screen
-            // used to shift the pipes up and down. half of height minus the gap - 100 for each pipe
-            tubeOffset[i] = (randomGenerator.nextFloat() - 0.5f) * (Gdx.graphics.getHeight() - gap - 200);
-
             // resets tubeX each tap
             tubeX[i] = Gdx.graphics.getWidth() / 2 - topTube.getWidth() / 2 + i * distanceBetweenTubes;
         }
@@ -94,6 +90,9 @@ public class FlappyBird extends ApplicationAdapter {
                 if (tubeX[i] < - topTube.getWidth()) {
 
                     tubeX[i] += numberOfTubes * distanceBetweenTubes;
+                    // 0.5 because we want 0.5 or -0.5 since we're working in center of the screen
+                    // used to shift the pipes up and down. half of height minus the gap - 100 for each pipe
+                    tubeOffset[i] = (randomGenerator.nextFloat() - 0.5f) * (Gdx.graphics.getHeight() - gap - 200);
                 }
                 else {
 
