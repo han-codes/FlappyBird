@@ -2,16 +2,22 @@ package com.csci4020.flappybird;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Circle;
 
 import java.util.Random;
 
 public class FlappyBird extends ApplicationAdapter {
-	SpriteBatch batch;
+	// lets us render textures
+    SpriteBatch batch;
 	Texture background;
 	Texture[] birds;
+	// lets us render shapes
+	ShapeRenderer shapeRenderer;
 
     Random randomGenerator;
 
@@ -19,6 +25,7 @@ public class FlappyBird extends ApplicationAdapter {
 	int flapState = 0;
 	float birdY = 0;
 	float velocity = 0;
+	Circle birdCircle;
 
 	// keeps track of the state of the game
 	int gameState = 0;
@@ -45,6 +52,9 @@ public class FlappyBird extends ApplicationAdapter {
 	    // manages displaying the sprites
 		batch = new SpriteBatch();
         background = new Texture(("bg.png"));
+        shapeRenderer = new ShapeRenderer();
+        birdCircle = new Circle();
+
         birds = new Texture[2];
         birds[0] = new Texture("bird.png");
         birds[1] = new Texture("bird2.png");
@@ -126,10 +136,21 @@ public class FlappyBird extends ApplicationAdapter {
             flapState = 0;
         }
 
+
+
         // draw bird in the center of screen
         batch.draw(birds[flapState], Gdx.graphics.getWidth() / 2 - birds[flapState].getWidth() / 2, birdY);
         // end drawing sprites
         batch.end();
+
+        shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+        shapeRenderer.setColor(Color.RED);
+
+        // x coordinate of the bird, y coordinate, and radius of the bird
+        birdCircle.set(Gdx.graphics.getWidth() / 2, birdY + birds[flapState].getHeight() / 2, birds[flapState].getWidth() / 2);
+        // render the circle we just made
+        shapeRenderer.circle(birdCircle.x, birdCircle.y, birdCircle.radius);
+        shapeRenderer.end();
 	}
 	
 	@Override
