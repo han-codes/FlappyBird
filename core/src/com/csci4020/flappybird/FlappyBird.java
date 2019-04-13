@@ -6,6 +6,8 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
+import java.util.Random;
+
 public class FlappyBird extends ApplicationAdapter {
 	SpriteBatch batch;
 	Texture background;
@@ -24,7 +26,12 @@ public class FlappyBird extends ApplicationAdapter {
 	Texture topTube;
 	Texture bottomTube;
 
+	// distance between the pipes
 	float gap = 400;
+	// to set different sizes of the tubes
+	float maxTubeOffset;
+    float tubeOffset;
+	Random randomGenerator;
 
 	/**
 	 * Runs when app begins
@@ -41,6 +48,8 @@ public class FlappyBird extends ApplicationAdapter {
 
         topTube = new Texture("toptube.png");
         bottomTube = new Texture("bottomtube.png");
+        maxTubeOffset = Gdx.graphics.getHeight() / 2 - gap / 2 - 100;
+        randomGenerator = new Random();
 	}
 
 	/**
@@ -57,13 +66,16 @@ public class FlappyBird extends ApplicationAdapter {
 
         if (gameState != 0) {
 
-            batch.draw(topTube, Gdx.graphics.getWidth() / 2 - topTube.getWidth() / 2, Gdx.graphics.getHeight() / 2 + gap / 2);
-            batch.draw(bottomTube, Gdx.graphics.getWidth() / 2 - bottomTube.getWidth() / 2, Gdx.graphics.getHeight() / 2 - gap / 2 - bottomTube.getHeight());
+            batch.draw(topTube, Gdx.graphics.getWidth() / 2 - topTube.getWidth() / 2, Gdx.graphics.getHeight() / 2 + gap / 2 + tubeOffset);
+            batch.draw(bottomTube, Gdx.graphics.getWidth() / 2 - bottomTube.getWidth() / 2, Gdx.graphics.getHeight() / 2 - gap / 2 - bottomTube.getHeight() + tubeOffset);
 
             // moves bird up when tapped
             if (Gdx.input.justTouched()) {
 
                 velocity = -30;
+                // 0.5 because we want 0.5 or -0.5 since we're working in center of the screen
+                // used to shift the pipes up and down. half of height minus the gap - 100 for each pipe
+                tubeOffset = (randomGenerator.nextFloat() - 0.5f) * (Gdx.graphics.getHeight() - gap - 200);
             }
 
             if (birdY > 0 || velocity < 0) {
