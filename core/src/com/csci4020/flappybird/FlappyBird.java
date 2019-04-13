@@ -19,6 +19,8 @@ public class FlappyBird extends ApplicationAdapter {
 
 	// keeps track of the state of the game
 	int gameState = 0;
+	float gravity = 2;
+
 	/**
 	 * Runs when app begins
 	 */
@@ -39,18 +41,16 @@ public class FlappyBird extends ApplicationAdapter {
 	@Override
 	public void render () {
 
-        if (Gdx.input.justTouched()) {
-
-            Gdx.app.log("Touch","Tapped screen");
-
-            // will begin the velocity and movement of the bird
-            gameState = 1;
-        }
-
         if (gameState != 0) {
 
+            // moves bird up when tapped
+            if (Gdx.input.justTouched()) {
+
+                velocity = -30;
+            }
+
             // effect of gravity
-            velocity++;
+            velocity += gravity;
             birdY -= velocity;
         }
         else {
