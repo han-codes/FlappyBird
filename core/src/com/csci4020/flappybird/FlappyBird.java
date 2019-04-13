@@ -49,9 +49,12 @@ public class FlappyBird extends ApplicationAdapter {
                 velocity = -30;
             }
 
-            // effect of gravity
-            velocity += gravity;
-            birdY -= velocity;
+            if (birdY > 0 || velocity < 0) {
+
+                // effect of gravity
+                velocity += gravity;
+                birdY -= velocity;
+            }
         }
         else {
 
