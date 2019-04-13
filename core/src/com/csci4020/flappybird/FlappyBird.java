@@ -8,26 +8,35 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class FlappyBird extends ApplicationAdapter {
 	SpriteBatch batch;
-	Texture img;
-	
+	Texture background;
+
+	/**
+	 * Runs when app begins
+	 */
 	@Override
 	public void create () {
+	    // manages displaying the sprites
 		batch = new SpriteBatch();
-		img = new Texture("badlogic.jpg");
+        background = new Texture(("bg.png"));
 	}
 
+	/**
+	 * Runs continuously while app is running
+	 */
 	@Override
 	public void render () {
-		Gdx.gl.glClearColor(1, 0, 0, 1);
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		batch.begin();
-		batch.draw(img, 0, 0);
-		batch.end();
+
+	    // start displaying sprits
+	    batch.begin();
+	    // take up the whole screen
+	    batch.draw(background, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+	    // end drawing sprites
+        batch.end();
 	}
 	
 	@Override
 	public void dispose () {
-		batch.dispose();
-		img.dispose();
+//		batch.dispose();
+//		img.dispose();
 	}
 }
