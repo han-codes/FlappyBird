@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 public class FlappyBird extends ApplicationAdapter {
 	SpriteBatch batch;
 	Texture background;
+	Texture bird;
 
 	/**
 	 * Runs when app begins
@@ -18,6 +19,7 @@ public class FlappyBird extends ApplicationAdapter {
 	    // manages displaying the sprites
 		batch = new SpriteBatch();
         background = new Texture(("bg.png"));
+        bird = new Texture("bird.png");
 	}
 
 	/**
@@ -30,6 +32,8 @@ public class FlappyBird extends ApplicationAdapter {
 	    batch.begin();
 	    // take up the whole screen
 	    batch.draw(background, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+	    // draw bird in the center of screen
+	    batch.draw(bird, Gdx.graphics.getWidth() / 2 - bird.getWidth() / 2, Gdx.graphics.getHeight() / 2 - bird.getHeight() / 2);
 	    // end drawing sprites
         batch.end();
 	}
