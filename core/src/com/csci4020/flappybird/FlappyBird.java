@@ -34,6 +34,11 @@ public class FlappyBird extends ApplicationAdapter {
 	@Override
 	public void render () {
 
+	    if (Gdx.input.justTouched()) {
+
+	        Gdx.app.log("Touch","Tapped screen");
+        }
+
 	    if (flapState == 0) {
 	        flapState = 1;
         }
