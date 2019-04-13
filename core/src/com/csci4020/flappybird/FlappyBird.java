@@ -24,6 +24,8 @@ public class FlappyBird extends ApplicationAdapter {
 	Texture topTube;
 	Texture bottomTube;
 
+	float gap = 400;
+
 	/**
 	 * Runs when app begins
 	 */
@@ -47,7 +49,16 @@ public class FlappyBird extends ApplicationAdapter {
 	@Override
 	public void render () {
 
+	    // Draw background first so it doesn't cover up the bird and pipes
+        // start displaying sprits
+        batch.begin();
+        // take up the whole screen
+        batch.draw(background, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+
         if (gameState != 0) {
+
+            batch.draw(topTube, Gdx.graphics.getWidth() / 2 - topTube.getWidth() / 2, Gdx.graphics.getHeight() / 2 + gap / 2);
+            batch.draw(bottomTube, Gdx.graphics.getWidth() / 2 - bottomTube.getWidth() / 2, Gdx.graphics.getHeight() / 2 - gap / 2 - bottomTube.getHeight());
 
             // moves bird up when tapped
             if (Gdx.input.justTouched()) {
@@ -78,10 +89,6 @@ public class FlappyBird extends ApplicationAdapter {
             flapState = 0;
         }
 
-        // start displaying sprits
-        batch.begin();
-        // take up the whole screen
-        batch.draw(background, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         // draw bird in the center of screen
         batch.draw(birds[flapState], Gdx.graphics.getWidth() / 2 - birds[flapState].getWidth() / 2, birdY);
         // end drawing sprites
