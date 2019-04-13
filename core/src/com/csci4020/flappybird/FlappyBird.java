@@ -89,7 +89,16 @@ public class FlappyBird extends ApplicationAdapter {
             }
 
             for (int i = 0; i < numberOfTubes; i++) {
-                tubeX[i] -= tubeVelocity;
+
+                // when tube is off the edge of screen shift tubes to the right
+                if (tubeX[i] < - topTube.getWidth()) {
+
+                    tubeX[i] += numberOfTubes * distanceBetweenTubes;
+                }
+                else {
+
+                    tubeX[i] -= tubeVelocity;
+                }
 
                 batch.draw(topTube, tubeX[i], Gdx.graphics.getHeight() / 2 + gap / 2 + tubeOffset[i]);
                 batch.draw(bottomTube, tubeX[i], Gdx.graphics.getHeight() / 2 - gap / 2 - bottomTube.getHeight() + tubeOffset[i]);
