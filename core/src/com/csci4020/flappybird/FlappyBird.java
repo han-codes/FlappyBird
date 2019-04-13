@@ -21,6 +21,9 @@ public class FlappyBird extends ApplicationAdapter {
 	int gameState = 0;
 	float gravity = 2;
 
+	Texture topTube;
+	Texture bottomTube;
+
 	/**
 	 * Runs when app begins
 	 */
@@ -33,6 +36,9 @@ public class FlappyBird extends ApplicationAdapter {
         birds[0] = new Texture("bird.png");
         birds[1] = new Texture("bird2.png");
         birdY = Gdx.graphics.getHeight() / 2 - birds[0].getHeight() / 2;
+
+        topTube = new Texture("toptube.png");
+        bottomTube = new Texture("bottomtube.png");
 	}
 
 	/**
