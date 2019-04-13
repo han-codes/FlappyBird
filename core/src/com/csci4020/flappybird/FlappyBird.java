@@ -11,8 +11,9 @@ import java.util.Random;
 public class FlappyBird extends ApplicationAdapter {
 	SpriteBatch batch;
 	Texture background;
-
 	Texture[] birds;
+
+    Random randomGenerator;
 
 	// keep track of which bird we'd like to display
 	int flapState = 0;
@@ -31,7 +32,8 @@ public class FlappyBird extends ApplicationAdapter {
 	// to set different sizes of the tubes
 	float maxTubeOffset;
     float tubeOffset;
-	Random randomGenerator;
+	float tubeVelocity = 4;
+	float tubeX;
 
 	/**
 	 * Runs when app begins
@@ -66,9 +68,6 @@ public class FlappyBird extends ApplicationAdapter {
 
         if (gameState != 0) {
 
-            batch.draw(topTube, Gdx.graphics.getWidth() / 2 - topTube.getWidth() / 2, Gdx.graphics.getHeight() / 2 + gap / 2 + tubeOffset);
-            batch.draw(bottomTube, Gdx.graphics.getWidth() / 2 - bottomTube.getWidth() / 2, Gdx.graphics.getHeight() / 2 - gap / 2 - bottomTube.getHeight() + tubeOffset);
-
             // moves bird up when tapped
             if (Gdx.input.justTouched()) {
 
@@ -76,7 +75,15 @@ public class FlappyBird extends ApplicationAdapter {
                 // 0.5 because we want 0.5 or -0.5 since we're working in center of the screen
                 // used to shift the pipes up and down. half of height minus the gap - 100 for each pipe
                 tubeOffset = (randomGenerator.nextFloat() - 0.5f) * (Gdx.graphics.getHeight() - gap - 200);
+
+                // resets tubeX each tap
+                tubeX = Gdx.graphics.getWidth() / 2 - topTube.getWidth() / 2;
             }
+
+            tubeX -= 4;
+
+            batch.draw(topTube, tubeX, Gdx.graphics.getHeight() / 2 + gap / 2 + tubeOffset);
+            batch.draw(bottomTube, tubeX, Gdx.graphics.getHeight() / 2 - gap / 2 - bottomTube.getHeight() + tubeOffset);
 
             if (birdY > 0 || velocity < 0) {
 
