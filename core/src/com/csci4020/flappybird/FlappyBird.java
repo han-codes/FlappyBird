@@ -14,7 +14,11 @@ public class FlappyBird extends ApplicationAdapter {
 
 	// keep track of which bird we'd like to display
 	int flapState = 0;
+	float birdY = 0;
+	float velocity = 0;
 
+	// keeps track of the state of the game
+	int gameState = 0;
 	/**
 	 * Runs when app begins
 	 */
@@ -26,6 +30,7 @@ public class FlappyBird extends ApplicationAdapter {
         birds = new Texture[2];
         birds[0] = new Texture("bird.png");
         birds[1] = new Texture("bird2.png");
+        birdY = Gdx.graphics.getHeight() / 2 - birds[0].getHeight() / 2;
 	}
 
 	/**
@@ -34,24 +39,43 @@ public class FlappyBird extends ApplicationAdapter {
 	@Override
 	public void render () {
 
-	    if (Gdx.input.justTouched()) {
+        if (Gdx.input.justTouched()) {
 
-	        Gdx.app.log("Touch","Tapped screen");
+            Gdx.app.log("Touch","Tapped screen");
+
+            // will begin the velocity and movement of the bird
+            gameState = 1;
         }
 
-	    if (flapState == 0) {
-	        flapState = 1;
+        if (gameState != 0) {
+
+            // effect of gravity
+            velocity++;
+            birdY -= velocity;
+        }
+        else {
+
+            if (Gdx.input.justTouched()) {
+
+                // will begin the velocity and movement of the bird
+                gameState = 1;
+            }
+        }
+
+        if (flapState == 0) {
+            flapState = 1;
         }
         else {
             flapState = 0;
         }
-	    // start displaying sprits
-	    batch.begin();
-	    // take up the whole screen
-	    batch.draw(background, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-	    // draw bird in the center of screen
-	    batch.draw(birds[flapState], Gdx.graphics.getWidth() / 2 - birds[flapState].getWidth() / 2, Gdx.graphics.getHeight() / 2 - birds[flapState].getHeight() / 2);
-	    // end drawing sprites
+
+        // start displaying sprits
+        batch.begin();
+        // take up the whole screen
+        batch.draw(background, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        // draw bird in the center of screen
+        batch.draw(birds[flapState], Gdx.graphics.getWidth() / 2 - birds[flapState].getWidth() / 2, birdY);
+        // end drawing sprites
         batch.end();
 	}
 	
