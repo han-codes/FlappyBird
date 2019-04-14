@@ -164,24 +164,14 @@ public class FlappyBird extends ApplicationAdapter {
         // x coordinate of the bird, y coordinate, and radius of the bird
         birdCircle.set(Gdx.graphics.getWidth() / 2, birdY + birds[flapState].getHeight() / 2, birds[flapState].getWidth() / 2);
 
-        shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-        shapeRenderer.setColor(Color.RED);
-
-        // render the circle we just made
-        shapeRenderer.circle(birdCircle.x, birdCircle.y, birdCircle.radius);
-
         // temporarily making rectangles that are covering tubes to be red to make sure it's covering them
         for (int i = 0; i < numberOfTubes; i++) {
-            shapeRenderer.rect(tubeX[i], Gdx.graphics.getHeight() / 2 + gap / 2 + tubeOffset[i], topTube.getWidth(), topTube.getHeight());
-            shapeRenderer.rect(tubeX[i], Gdx.graphics.getHeight() / 2 - gap / 2 - bottomTube.getHeight() + tubeOffset[i], bottomTube.getWidth(), bottomTube.getHeight());
 
             if (Intersector.overlaps(birdCircle, topTubeRectangles[i]) || Intersector.overlaps(birdCircle, bottomTubeRectangles[i])) {
 
                 Gdx.app.log("Collision", "Yes!");
             }
         }
-
-        shapeRenderer.end();
 	}
 	
 	@Override
