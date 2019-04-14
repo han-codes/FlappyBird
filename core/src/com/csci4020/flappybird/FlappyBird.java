@@ -21,6 +21,7 @@ public class FlappyBird extends ApplicationAdapter {
     SpriteBatch batch;
 	Texture background;
 	Texture[] birds;
+	Texture gameover;
 
     Random randomGenerator;
 
@@ -61,6 +62,7 @@ public class FlappyBird extends ApplicationAdapter {
 	    // manages displaying the sprites
 		batch = new SpriteBatch();
         background = new Texture(("bg.png"));
+        gameover = new Texture("gameover.png");
         birdCircle = new Circle();
         font = new BitmapFont();
         font.setColor(Color.WHITE);
@@ -104,7 +106,7 @@ public class FlappyBird extends ApplicationAdapter {
         // take up the whole screen
         batch.draw(background, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
-        if (gameState != 0) {
+        if (gameState == 1) {
 
             if (tubeX[scoringTube] < Gdx.graphics.getWidth()) {
 
@@ -152,20 +154,28 @@ public class FlappyBird extends ApplicationAdapter {
 
             }
 
-            if (birdY > 0 || velocity < 0) {
+            if (birdY > 0) {
 
                 // effect of gravity
                 velocity += gravity;
                 birdY -= velocity;
             }
+            else {
+                // if bird falls below the screen, gameState to 2 to identify that the game is over
+                gameState = 2;
+            }
         }
-        else {
+        else if (gameState == 0) {
 
             if (Gdx.input.justTouched()) {
 
                 // will begin the velocity and movement of the bird
                 gameState = 1;
             }
+        } else if (gameState == 2) {
+
+            // display gameover in the middle of the screen
+            batch.draw(gameover, Gdx.graphics.getWidth() / 2 - gameover.getWidth() / 2, Gdx.graphics.getHeight() / 2 - gameover.getHeight() / 2);
         }
 
         if (flapState == 0) {
@@ -195,6 +205,8 @@ public class FlappyBird extends ApplicationAdapter {
             if (Intersector.overlaps(birdCircle, topTubeRectangles[i]) || Intersector.overlaps(birdCircle, bottomTubeRectangles[i])) {
 
                 Gdx.app.log("Collision", "Yes!");
+
+                gameState = 2;
             }
         }
 	}
