@@ -71,7 +71,6 @@ public class FlappyBird extends ApplicationAdapter {
         birds = new Texture[2];
         birds[0] = new Texture("bird.png");
         birds[1] = new Texture("bird2.png");
-        birdY = Gdx.graphics.getHeight() / 2 - birds[0].getHeight() / 2;
 
         topTube = new Texture("toptube.png");
         bottomTube = new Texture("bottomtube.png");
@@ -80,6 +79,13 @@ public class FlappyBird extends ApplicationAdapter {
         distanceBetweenTubes = Gdx.graphics.getWidth() / 2;
         topTubeRectangles = new Rectangle[numberOfTubes];
         bottomTubeRectangles = new Rectangle[numberOfTubes];
+
+        startGame();
+	}
+
+	public void startGame() {
+
+        birdY = Gdx.graphics.getHeight() / 2 - birds[0].getHeight() / 2;
 
         // set x coordinate and offset
         for (int i = 0; i < numberOfTubes; i++) {
@@ -92,7 +98,7 @@ public class FlappyBird extends ApplicationAdapter {
             topTubeRectangles[i] = new Rectangle();
             bottomTubeRectangles[i] = new Rectangle();
         }
-	}
+    }
 
 	/**
 	 * Runs continuously while app is running
@@ -176,6 +182,16 @@ public class FlappyBird extends ApplicationAdapter {
 
             // display gameover in the middle of the screen
             batch.draw(gameover, Gdx.graphics.getWidth() / 2 - gameover.getWidth() / 2, Gdx.graphics.getHeight() / 2 - gameover.getHeight() / 2);
+
+            // reset the game
+            if (Gdx.input.justTouched()) {
+
+                gameState = 1;
+                startGame();
+                score = 0;
+                scoringTube = 0;
+                velocity = 0;
+            }
         }
 
         if (flapState == 0) {
