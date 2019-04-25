@@ -3,6 +3,7 @@ package com.csci4020.flappybird;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.math.Rectangle;
 
 public class FlappyBird extends ApplicationAdapter
 {
@@ -13,11 +14,18 @@ public class FlappyBird extends ApplicationAdapter
 	private Texture topTube;
 	private Texture bottomTube;
 
-	// Prepare same game variables
+	// Prepare some game variables
 	private final float tubeGap = 500;
 	private float maxTubeOffset;
 	private final float tubeVelocity = 4;
 	private final int numberOfTubes = 3;
+	private float distanceBetweenTubes;
+	private float[] tubeX = new float[numberOfTubes];
+	private float[] tubeOffset = new float[numberOfTubes];
+	private Rectangle[] topTubeRectangles;
+	private Rectangle[] bottomTubeRectangles;
+
+
 
 	/**
 	 * This method is the first method to get called
