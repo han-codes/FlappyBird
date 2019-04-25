@@ -3,7 +3,14 @@ package com.csci4020.flappybird;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Rectangle;
+
+enum FlapStates
+{
+	FLAP_UP,
+	FLAP_DOWN;
+}
 
 public class FlappyBird extends ApplicationAdapter
 {
@@ -25,6 +32,10 @@ public class FlappyBird extends ApplicationAdapter
 	private Rectangle[] topTubeRectangles;
 	private Rectangle[] bottomTubeRectangles;
 
+	private Circle birdCircle;
+	private FlapStates flapState = FlapStates.FLAP_DOWN;
+	private float birdY = 0;
+	private float birdVelocity = 0;
 
 
 	/**
