@@ -13,6 +13,12 @@ public class FlappyBird extends ApplicationAdapter
 	private Texture topTube;
 	private Texture bottomTube;
 
+	// Prepare same game variables
+	private final float tubeGap = 500;
+	private float maxTubeOffset;
+	private final float tubeVelocity = 4;
+	private final int numberOfTubes = 3;
+
 	/**
 	 * This method is the first method to get called
 	 */
@@ -28,6 +34,9 @@ public class FlappyBird extends ApplicationAdapter
 		birds = new Texture[2];
 		birds[0] = new Texture("bird.png");
 		birds[1] = new Texture("bird2.png");
+
+		// Set up some game constants
+
 	}
 
 	public void startGame()
