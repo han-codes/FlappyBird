@@ -112,6 +112,12 @@ public class FlappyBird extends ApplicationAdapter
 		{
 
 		}
+
+		// Alternate the flap state
+		if (flapState == FlapStates.FLAP_UP)
+			flapState = FlapStates.FLAP_DOWN;
+		else
+			flapState = FlapStates.FLAP_UP;
 	}
 
 	@Override
