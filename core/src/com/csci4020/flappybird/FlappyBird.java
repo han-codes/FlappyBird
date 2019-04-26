@@ -4,6 +4,7 @@ package com.csci4020.flappybird;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Rectangle;
 
@@ -49,6 +50,8 @@ public class FlappyBird extends ApplicationAdapter
 
 	private Random randomGenerator = new Random();
 	private GameStates gameState = GameStates.GAME_PAUSED;
+
+	SpriteBatch batch;
 
 	/**
 	 * This method is the first method to get called
@@ -100,17 +103,23 @@ public class FlappyBird extends ApplicationAdapter
 	@Override
 	public void render()
 	{
+		// Initialize the sprite batch
+		batch.begin();
+		// sprites are layered by what is drawn first
+		batch.draw(background, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+
 		if (gameState == GameStates.GAME_RUNNING)
 		{
 
 		}
 		else if (gameState == GameStates.GAME_PAUSED)
 		{
-
+			if (Gdx.input.justTouched())
+				gameState = GameStates.GAME_RUNNING;
 		}
 		else if (gameState == GameStates.GAME_OVER)
 		{
-
+			// Display the game over graphic and pause
 		}
 
 		// Alternate the flap state
