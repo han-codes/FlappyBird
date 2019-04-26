@@ -2,6 +2,7 @@ package com.csci4020.flappybird;
 
 
 import com.badlogic.gdx.ApplicationAdapter;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Rectangle;
@@ -32,7 +33,7 @@ public class FlappyBird extends ApplicationAdapter
 	private Rectangle[] topTubeRectangles;
 	private Rectangle[] bottomTubeRectangles;
 
-	private Circle birdCircle;
+	private Circle birdCircle = new Circle();
 	private FlapStates flapState = FlapStates.FLAP_DOWN;
 	private float birdY = 0;
 	private float birdVelocity = 0;
@@ -55,7 +56,10 @@ public class FlappyBird extends ApplicationAdapter
 		birds[1] = new Texture("bird2.png");
 
 		// Set up some game constants
+		distanceBetweenTubes = Gdx.graphics.getWidth() / 2;
+		maxTubeOffset = Gdx.graphics.getHeight() / 2 - tubeGap;
 
+		startGame();
 	}
 
 	public void startGame()
