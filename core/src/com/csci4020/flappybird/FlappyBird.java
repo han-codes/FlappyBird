@@ -127,6 +127,14 @@ public class FlappyBird extends ApplicationAdapter
 			flapState = FlapStates.FLAP_DOWN;
 		else
 			flapState = FlapStates.FLAP_UP;
+
+		// Finish drawing the rest of the sprites
+		batch.draw(birds[flapState.ordinal()], Gdx.graphics.getWidth() / 2 - birds[flapState.ordinal()].getWidth() / 2, birdY);
+
+		// All sprites have been drawn on the gameboard
+		batch.end();
+
+
 	}
 
 	@Override
