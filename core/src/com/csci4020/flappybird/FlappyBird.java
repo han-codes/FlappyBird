@@ -7,10 +7,19 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Rectangle;
 
+import java.util.Random;
+
 enum FlapStates
 {
 	FLAP_UP,
 	FLAP_DOWN;
+}
+
+enum GameStates
+{
+	GAME_PAUSED,
+	GAME_RUNNING,
+	GAME_OVER;
 }
 
 public class FlappyBird extends ApplicationAdapter
@@ -38,6 +47,8 @@ public class FlappyBird extends ApplicationAdapter
 	private float birdY = 0;
 	private float birdVelocity = 0;
 
+	private Random randomGenerator = new Random();
+	private GameStates gameState = GameStates.GAME_PAUSED;
 
 	/**
 	 * This method is the first method to get called
@@ -62,9 +73,25 @@ public class FlappyBird extends ApplicationAdapter
 		startGame();
 	}
 
+
+	/**
+	 *
+	 */
 	public void startGame()
 	{
+		// Set the starting point of the bird
+		birdY = Gdx.graphics.getHeight() / 2 - birds[0].getHeight() / 2;
 
+		for (int i = 0; i < numberOfTubes; i++)
+		{
+			tubeOffset[i] = (randomGenerator.nextFloat() - 0.5f) * (Gdx.graphics.getHeight() - tubeGap);
+
+			// Reset tube X
+			tubeX[i] = Gdx.graphics.getWidth() / 2 - topTube.getWidth() / 2 + Gdx.graphics.getWidth() + i * distanceBetweenTubes;
+
+			topTubeRectangles[i] = new Rectangle();
+			bottomTubeRectangles[i] = new Rectangle();
+		}
 	}
 
 	/**
@@ -73,7 +100,18 @@ public class FlappyBird extends ApplicationAdapter
 	@Override
 	public void render()
 	{
+		if (gameState == GameStates.GAME_RUNNING)
+		{
 
+		}
+		else if (gameState == GameStates.GAME_PAUSED)
+		{
+
+		}
+		else if (gameState == GameStates.GAME_OVER)
+		{
+
+		}
 	}
 
 	@Override
