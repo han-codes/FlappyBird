@@ -6,6 +6,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Circle;
+import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Rectangle;
 
 import java.util.Random;
@@ -134,12 +135,12 @@ public class FlappyBird extends ApplicationAdapter
 		// All sprites have been drawn on the gameboard
 		batch.end();
 
-
-	}
-
-	@Override
-	public void dispose()
-	{
-
+		for (int i = 0; i < numberOfTubes; i++)
+		{
+			if (Intersector.overlaps(birdCircle, topTubeRectangles[i]) || Intersector.overlaps(birdCircle, bottomTubeRectangles[i]))
+			{
+				gameState = GameStates.GAME_OVER;
+			}
+		}
 	}
 }
