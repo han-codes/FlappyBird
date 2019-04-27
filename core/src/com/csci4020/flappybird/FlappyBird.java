@@ -41,8 +41,8 @@ public class FlappyBird extends ApplicationAdapter
 	private float distanceBetweenTubes;
 	private float[] tubeX = new float[numberOfTubes];
 	private float[] tubeOffset = new float[numberOfTubes];
-	private Rectangle[] topTubeRectangles;
-	private Rectangle[] bottomTubeRectangles;
+	private Rectangle[] topTubeRectangles = new Rectangle[numberOfTubes];
+	private Rectangle[] bottomTubeRectangles = new Rectangle[numberOfTubes];
 
 	private Circle birdCircle = new Circle();
 	private FlapStates flapState = FlapStates.FLAP_DOWN;
@@ -52,7 +52,7 @@ public class FlappyBird extends ApplicationAdapter
 	private Random randomGenerator = new Random();
 	private GameStates gameState = GameStates.GAME_PAUSED;
 
-	SpriteBatch batch;
+	SpriteBatch batch = new SpriteBatch();
 
 	/**
 	 * This method is the first method to get called
