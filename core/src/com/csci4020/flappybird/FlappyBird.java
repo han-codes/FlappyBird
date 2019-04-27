@@ -135,6 +135,9 @@ public class FlappyBird extends ApplicationAdapter
 		// All sprites have been drawn on the gameboard
 		batch.end();
 
+		// Draw the collision
+		birdCircle.set(Gdx.graphics.getWidth() / 2, birdY + birds[flapState.ordinal()].getHeight() / 2, birds[flapState.ordinal()].getWidth() / 2);
+
 		for (int i = 0; i < numberOfTubes; i++)
 		{
 			if (Intersector.overlaps(birdCircle, topTubeRectangles[i]) || Intersector.overlaps(birdCircle, bottomTubeRectangles[i]))
