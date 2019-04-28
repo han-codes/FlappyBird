@@ -57,7 +57,7 @@ public class FlappyBird extends ApplicationAdapter
 	private Random randomGenerator = new Random();
 	private int scoringTube = 0;
 	private int score = 0;
-	private final float gravity = 2f;
+	private final float gravity = 1.5f;
 
 	private GameStates gameState = GameStates.GAME_PAUSED;
 
@@ -177,7 +177,14 @@ public class FlappyBird extends ApplicationAdapter
 			// Display the game over graphic and pause
 			batch.draw(gameover, Gdx.graphics.getWidth() / 2 - gameover.getWidth() / 2, Gdx.graphics.getHeight() / 2 - gameover.getHeight() / 2);
 
-			// TODO RESET THE GAME
+			if (Gdx.input.justTouched())
+			{
+				gameState = GameStates.GAME_PAUSED;
+				score = 0;
+				scoringTube = 0;
+				birdVelocity = 0;
+				startGame();
+			}
 		}
 
 		// Alternate the flap state
