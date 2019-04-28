@@ -57,10 +57,11 @@ public class FlappyBird extends ApplicationAdapter
 	private Random randomGenerator = new Random();
 	private int scoringTube = 0;
 	private int score = 0;
+	private final float gravity = 2f;
 
 	private GameStates gameState = GameStates.GAME_PAUSED;
 
-	SpriteBatch batch = new SpriteBatch();
+	private SpriteBatch batch;
 
 	/**
 	 * This method is the first method to get called
@@ -81,6 +82,7 @@ public class FlappyBird extends ApplicationAdapter
 		// Set up some game constants
 		distanceBetweenTubes = Gdx.graphics.getWidth() / 2;
 		maxTubeOffset = Gdx.graphics.getHeight() / 2 - tubeGap;
+		batch = new SpriteBatch();
 
 		startGame();
 	}
@@ -154,6 +156,16 @@ public class FlappyBird extends ApplicationAdapter
 				topTubeRectangles[i] = new Rectangle(tubeX[i], Gdx.graphics.getHeight() / 2 + tubeGap / 2 + tubeOffset[i], topTube.getWidth(), topTube.getHeight());
 				bottomTubeRectangles[i] = new Rectangle(tubeX[i], Gdx.graphics.getHeight() / 2 - tubeGap / 2 - bottomTube.getHeight() + tubeOffset[i], bottomTube.getWidth(), bottomTube.getHeight());
 			}
+
+			// Continue to drop the bird until it hits the bottom
+			if (birdY > 0)
+			{
+				birdVelocity += gravity;
+				birdY -= birdVelocity;
+			}
+			else
+				gameState = GameStates.GAME_OVER;
+
 		}
 		else if (gameState == GameStates.GAME_PAUSED)
 		{
