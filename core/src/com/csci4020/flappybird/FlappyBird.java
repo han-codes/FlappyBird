@@ -147,7 +147,8 @@ public class FlappyBird extends ApplicationAdapter
 					tubeX[i] -= tubeVelocity;
 
 				// Draw the tubes
-
+				batch.draw(topTube, tubeX[i], Gdx.graphics.getHeight() / 2 + tubeGap / 2 + tubeOffset[i]);
+				batch.draw(bottomTube, tubeX[i], Gdx.graphics.getHeight() / 2 - tubeGap / 2 - bottomTube.getHeight() + tubeOffset[i]);
 			}
 		}
 		else if (gameState == GameStates.GAME_PAUSED)
