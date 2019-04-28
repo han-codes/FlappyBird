@@ -3,15 +3,18 @@ package com.csci4020.flappybird;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Rectangle;
 
 import java.util.Random;
 
-import sun.java2d.windows.GDIBlitLoops;
+import org.w3c.dom.css.Rect;
 
 enum FlapStates
 {
@@ -52,6 +55,9 @@ public class FlappyBird extends ApplicationAdapter
 	private float birdVelocity = 0;
 
 	private Random randomGenerator = new Random();
+	private int scoringTube = 0;
+	private int score = 0;
+
 	private GameStates gameState = GameStates.GAME_PAUSED;
 
 	SpriteBatch batch = new SpriteBatch();
@@ -113,7 +119,36 @@ public class FlappyBird extends ApplicationAdapter
 
 		if (gameState == GameStates.GAME_RUNNING)
 		{
+			// If the bird has passed a tube, manage score
+			if (tubeX[scoringTube] < Gdx.graphics.getWidth())
+			{
+				score++;
 
+				if (scoringTube < numberOfTubes - 1)
+					scoringTube++;
+				else
+					scoringTube = 0;
+			}
+
+			// Move bird on screen tap
+			if (Gdx.input.justTouched())
+				birdVelocity = -30;
+
+			// Manage tubes that need to be drawn
+			for (int i = 0; i < numberOfTubes; i++)
+			{
+				// Move a tube back to the start after it goes off screen
+				if (tubeX[i] < -topTube.getWidth())
+				{
+					tubeX[i] += numberOfTubes * distanceBetweenTubes;
+					tubeOffset[i] = (randomGenerator.nextFloat() - 0.5f) * (Gdx.graphics.getHeight() - tubeGap); // TODO Might need to hard value adjust
+				}
+				else
+					tubeX[i] -= tubeVelocity;
+
+				// Draw the tubes
+
+			}
 		}
 		else if (gameState == GameStates.GAME_PAUSED)
 		{
