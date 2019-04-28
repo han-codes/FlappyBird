@@ -11,6 +11,8 @@ import com.badlogic.gdx.math.Rectangle;
 
 import java.util.Random;
 
+import sun.java2d.windows.GDIBlitLoops;
+
 enum FlapStates
 {
 	FLAP_UP,
@@ -121,6 +123,9 @@ public class FlappyBird extends ApplicationAdapter
 		else if (gameState == GameStates.GAME_OVER)
 		{
 			// Display the game over graphic and pause
+			batch.draw(gameover, Gdx.graphics.getWidth() / 2 - gameover.getWidth() / 2, Gdx.graphics.getHeight() / 2 - gameover.getHeight() / 2);
+
+			// TODO RESET THE GAME
 		}
 
 		// Alternate the flap state
