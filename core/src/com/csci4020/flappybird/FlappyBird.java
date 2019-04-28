@@ -149,6 +149,10 @@ public class FlappyBird extends ApplicationAdapter
 				// Draw the tubes
 				batch.draw(topTube, tubeX[i], Gdx.graphics.getHeight() / 2 + tubeGap / 2 + tubeOffset[i]);
 				batch.draw(bottomTube, tubeX[i], Gdx.graphics.getHeight() / 2 - tubeGap / 2 - bottomTube.getHeight() + tubeOffset[i]);
+
+				// Place the collision shapes
+				topTubeRectangles[i] = new Rectangle(tubeX[i], Gdx.graphics.getHeight() / 2 + tubeGap / 2 + tubeOffset[i], topTube.getWidth(), topTube.getHeight());
+				bottomTubeRectangles[i] = new Rectangle(tubeX[i], Gdx.graphics.getHeight() / 2 - tubeGap / 2 - bottomTube.getHeight() + tubeOffset[i], bottomTube.getWidth(), bottomTube.getHeight());
 			}
 		}
 		else if (gameState == GameStates.GAME_PAUSED)
