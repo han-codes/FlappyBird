@@ -34,10 +34,10 @@ public class FlappyBird extends ApplicationAdapter
 	private Texture bottomTube;
 
 	// Prepare some game variables
-	private final float tubeGap = 500;
+	private final float tubeGap = 550;
 	private float maxTubeOffset;
-	private final float tubeVelocity = 4;
-	private final int numberOfTubes = 3;
+	private final float tubeVelocity = 5;
+	private final int numberOfTubes = 4;
 	private float distanceBetweenTubes;
 	private float[] tubeX = new float[numberOfTubes];
 	private float[] tubeOffset = new float[numberOfTubes];
@@ -129,7 +129,7 @@ public class FlappyBird extends ApplicationAdapter
 
 			// Move bird on screen tap
 			if (Gdx.input.justTouched())
-				birdVelocity = -30;
+				birdVelocity = -25;
 
 			// Manage tubes that need to be drawn
 			for (int i = 0; i < numberOfTubes; i++)
@@ -170,7 +170,7 @@ public class FlappyBird extends ApplicationAdapter
 		else if (gameState == GameStates.GAME_OVER)
 		{
 			// Display the game over graphic and pause
-			batch.draw(gameover, Gdx.graphics.getWidth() / 2 - gameover.getWidth() / 2, Gdx.graphics.getHeight() / 2 - gameover.getHeight() / 2);
+			batch.draw(gameover, (Gdx.graphics.getWidth() - gameover.getWidth()) / 2, Gdx.graphics.getHeight() / 2 - gameover.getHeight() / 2);
 
 			if (Gdx.input.justTouched())
 			{
