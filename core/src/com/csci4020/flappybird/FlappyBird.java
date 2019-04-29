@@ -3,7 +3,9 @@ package com.csci4020.flappybird;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Intersector;
@@ -56,6 +58,8 @@ public class FlappyBird extends ApplicationAdapter
 
 	private GameStates gameState = GameStates.GAME_PAUSED;
 
+	BitmapFont font;
+
 	private SpriteBatch batch;
 
 	/**
@@ -78,6 +82,11 @@ public class FlappyBird extends ApplicationAdapter
 		distanceBetweenTubes = Gdx.graphics.getWidth() / 2;
 		maxTubeOffset = Gdx.graphics.getHeight() / 2 - tubeGap;
 		batch = new SpriteBatch();
+
+		// Prepare the score font
+		font = new BitmapFont();
+		font.setColor(Color.NAVY);
+		font.getData().setScale(5);
 
 		startGame();
 	}
@@ -191,8 +200,12 @@ public class FlappyBird extends ApplicationAdapter
 		// Finish drawing the rest of the sprites
 		batch.draw(birds[flapState.ordinal()], Gdx.graphics.getWidth() / 2 - birds[flapState.ordinal()].getWidth() / 2, birdY);
 
+		// Draw the score
+		font.draw(batch, String.valueOf(score), 100, 200);
+
 		// All sprites have been drawn on the gameboard
 		batch.end();
+
 
 		// Draw the collision
 		birdCircle.set(Gdx.graphics.getWidth() / 2, birdY + birds[flapState.ordinal()].getHeight() / 2, birds[flapState.ordinal()].getWidth() / 2);
